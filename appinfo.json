@@ -1,0 +1,19 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "gaston.bougie@gmail.com",
+    "longName": "Pebble.C_GoodWe",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Pebble.C_GoodWe",
+    "uuid": "4cb65e36-b75c-4375-9cb7-2a3950dbaedf",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
