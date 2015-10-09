@@ -1,5 +1,9 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_CURPOWER": 0,
+        "KEY_EDAY": 1,
+        "KEY_SOLARVALUE": 2
+    },
     "capabilities": [
         ""
     ],
@@ -11,8 +15,12 @@
     },
     "sdkVersion": "3",
     "shortName": "Pebble.C_GoodWe",
-    "uuid": "4cb65e36-b75c-4375-9cb7-2a3950dbaedf",
-    "versionLabel": "1.0",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "bf5f7502-df18-43f4-b638-62e0b8ef122c",
+    "versionLabel": "1.1",
     "watchapp": {
         "watchface": false
     }
