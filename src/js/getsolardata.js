@@ -1,4 +1,4 @@
-var SolaruserID = '40aebd92-dd6e-4d51-8061-8e16dd5f400b';
+var SolaruserID = 'Something like this f24twer-2346-hdfg-i38gf-eragaerfq3gs43';
 var SolarDate = '2015-10-09';
 var solar_HourPower = [];
 var myJsonString;
