@@ -1,6 +1,6 @@
 #include <pebble.h>
 #include <time.h>
-  
+
 // Dictionary between JS & C Language
 #define KEY_CURPOWER 0
 #define KEY_EDAY  1
@@ -80,6 +80,12 @@ static void window_unload(Window *s_main_window) {
   text_layer_destroy(text_layer);
 }
 
+void skip_over_char(char **buffer, const char lookup) {
+  while(((*buffer)[0] != lookup) && ((*buffer)[0] != '\0')) {
+    (*buffer)++;
+  }
+  (*buffer)++; //skip over lookup character
+}
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   // Store incoming information
@@ -87,6 +93,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   static char buffer_eday[8];
   static char buffer_solarvalue[512];
   static char weather_layer_buffer[32];
+  static int solar_values[144];
+  static int index;
+  static int received;
+  char *pch;
   
   // Read first item
   Tuple *t = dict_read_first(iterator);
@@ -102,8 +112,17 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       snprintf(buffer_eday, sizeof(buffer_eday), "%s", t->value->cstring);
       break;
     case KEY_SOLARVALUE :
-      snprintf(buffer_solarvalue, sizeof(buffer_solarvalue), "%s", t->value->cstring);
+      received = snprintf(buffer_solarvalue, sizeof(buffer_solarvalue), "%s", t->value->cstring);
       APP_LOG(APP_LOG_LEVEL_INFO , "Received buffer_solarvalue: %s", buffer_solarvalue);
+      pch = buffer_solarvalue;
+      skip_over_char(&pch, '[');
+      index = 0;
+      while (pch - buffer_solarvalue < received) {
+        solar_values[index++] = atoi(pch);
+        APP_LOG(APP_LOG_LEVEL_INFO, "solar_values[%3d] = %d", index - 1, solar_values[index-1]);
+        skip_over_char(&pch, ',');
+      }
+      APP_LOG(APP_LOG_LEVEL_INFO , "Received %d values", index);
       break;  
     default:
       APP_LOG(APP_LOG_LEVEL_ERROR, "Key %s not recognized!", t->value->cstring);
